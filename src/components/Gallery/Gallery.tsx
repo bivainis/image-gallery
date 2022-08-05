@@ -8,7 +8,11 @@ const Gallery = ({ data }: GalleryProps) => {
   return (
     <ul>
       {data.map((item) => {
-        return <li key={item.key}>{item.title}</li>;
+        return (
+          <li key={item.key}>
+            <img src={item.imagePath} alt={item.title} />
+          </li>
+        );
       })}
     </ul>
   );
