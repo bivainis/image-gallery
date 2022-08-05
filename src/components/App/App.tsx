@@ -1,7 +1,8 @@
+import AppRouter from "AppRouter";
 import "./App.scss";
 
 function App() {
-  return <div className="App">Gallery App</div>;
+  return <AppRouter />;
 }
 
 export default App;
