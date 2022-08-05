@@ -5,7 +5,13 @@ interface GalleryProps {
 }
 
 const Gallery = ({ data }: GalleryProps) => {
-  return <div>Gallery component</div>;
+  return (
+    <ul>
+      {data.map((item) => {
+        return <li key={item.key}>{item.title}</li>;
+      })}
+    </ul>
+  );
 };
 
 export default Gallery;
