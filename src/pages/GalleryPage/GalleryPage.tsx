@@ -9,11 +9,11 @@ const GalleryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   if (loading) {
-    return "Loading, please wait...";
+    return <p>Loading, please wait...</p>;
   }
 
   if (error) {
-    return "There was an error loading images, please try again";
+    return <p>There was an error loading images, please try again</p>;
   }
 
   return (
