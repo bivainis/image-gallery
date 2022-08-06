@@ -2,8 +2,9 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
+  color: white;
 
   > svg {
-    fill: white;
+    fill: currentColor;
   }
 }

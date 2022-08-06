@@ -1,4 +1,6 @@
+import { Button } from "components/Button";
 import { useState } from "react";
+import { ReactComponent as ClearIcon } from "assets/icons/backspace.svg";
 
 import classes from "./Search.module.scss";
 
@@ -29,17 +31,23 @@ const Search = ({ onSearch }: SearchProps) => {
 
   return (
     <form className={classes.Search} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="search"
-        placeholder="Search images"
-        value={searchQuery}
-        onChange={handleOnInputChange}
-      />
-      <button type="button" onClick={handleClearSearch}>
-        Clear
-      </button>
-      <button>Search</button>
+      <div className={classes.SearchInner}>
+        <input
+          className={classes.SearchInput}
+          type="text"
+          name="search"
+          placeholder="Search images"
+          value={searchQuery}
+          onChange={handleOnInputChange}
+        />
+        <Button
+          className={classes.SearchClearButton}
+          type="button"
+          onClick={handleClearSearch}
+        >
+          <ClearIcon fill="black" />
+        </Button>
+      </div>
     </form>
   );
 };
