@@ -1,0 +1,40 @@
+.Gallery {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+  &Item {
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+
+    &Description {
+      padding: 20px 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: silver;
+      transition: transform 0.2s;
+      transform: translateY(100%);
+    }
+
+    &:hover {
+      .GalleryItemDescription {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &Image {
+    display: block;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
