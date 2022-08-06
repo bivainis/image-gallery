@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { Image } from "ts/interfaces";
+
 interface UseFetchDataParams {
   endpoint: string;
-  params: {
-    page: number;
-    pageSize?: number;
-  };
 }
 
 const useFetchData = ({
   endpoint,
-  params,
 }: UseFetchDataParams): {
   loading: boolean;
   data: Image[];
@@ -20,12 +16,10 @@ const useFetchData = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
 
-  const { page } = params;
-
   useEffect(() => {
     setLoading(true);
 
-    fetch(endpoint + "?page=" + page)
+    fetch(endpoint)
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);
@@ -38,7 +32,7 @@ const useFetchData = ({
       .finally(() => {
         setLoading(false);
       });
-  }, [endpoint, page]);
+  }, [endpoint]);
 
   return { loading, data, error };
 };

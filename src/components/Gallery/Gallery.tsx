@@ -5,30 +5,12 @@ import classes from "./Gallery.module.scss";
 
 interface GalleryProps {
   data: Image[];
-  searchQuery: string;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   isLoading: boolean;
 }
 
-const Gallery = ({
-  data,
-  searchQuery,
-  page,
-  setPage,
-  isLoading,
-}: GalleryProps) => {
-  const searchFilter = (item: Image) => {
-    // test if string has search query, case insensitive
-    const regexp = new RegExp(searchQuery, "i");
-    const { title, description } = item;
-
-    const variant1 = regexp.test(title);
-    const variant2 = regexp.test(description);
-
-    return variant1 || variant2;
-  };
-
+const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
   const handlePageChange = (val: number) => {
     setPage((previousPage) => {
       return previousPage + val;
@@ -52,12 +34,12 @@ const Gallery = ({
         <p>Loading, please wait...</p>
       ) : (
         <ul className={classes.Gallery}>
-          {data.filter(searchFilter).map((item) => {
+          {data.map((item) => {
             return (
               <li className={classes.GalleryItem} key={item.key}>
                 <img
                   className={classes.GalleryImage}
-                  src="https://placehold.co/300x200"
+                  src={item.imagePath}
                   alt={item.title}
                 />
 
