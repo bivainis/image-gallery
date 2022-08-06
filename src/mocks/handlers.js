@@ -7,16 +7,10 @@ const getGalleryData = (req, res, ctx) => {
     ctx.delay(500),
     ctx.status(200),
     ctx.json({
-      data: galleryData.map((item) => {
-        // Image paths are using html entity ampersand instead of correct one.
-        const fixedPath = item.imagePath.replace(/&amp;/gi, "&");
-
-        return {
-          ...item,
-          imagePath: fixedPath,
-          key: uuidv4(),
-        };
-      }),
+      data: galleryData.map((item) => ({
+        ...item,
+        key: uuidv4(),
+      })),
     })
   );
 };
