@@ -19,16 +19,17 @@ const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
 
   return (
     <div>
-      <button onClick={() => handlePageChange(-1)} disabled={page === 1}>
-        prev
-      </button>
-      <span>{page}</span>
-      <button
-        onClick={() => handlePageChange(1)}
-        disabled={data.length < PAGINATION_PAGE_SIZE}
-      >
-        next
-      </button>
+      <div className={classes.GalleryControls}>
+        <button onClick={() => handlePageChange(-1)} disabled={page === 1}>
+          prev
+        </button>
+        <button
+          onClick={() => handlePageChange(1)}
+          disabled={data.length < PAGINATION_PAGE_SIZE}
+        >
+          next
+        </button>
+      </div>
 
       {isLoading ? (
         <p>Loading, please wait...</p>

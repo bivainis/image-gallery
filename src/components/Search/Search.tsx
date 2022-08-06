@@ -1,4 +1,7 @@
 import { useState } from "react";
+
+import classes from "./Search.module.scss";
+
 interface SearchProps {
   onSearch: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -25,7 +28,7 @@ const Search = ({ onSearch }: SearchProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={classes.Search} onSubmit={handleSubmit}>
       <input
         type="text"
         name="search"

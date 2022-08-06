@@ -22,12 +22,11 @@ const GalleryPage = () => {
   }
 
   return (
-    <div>
-      <h1>Gallery</h1>
+    <>
       <Search onSearch={setSearchQuery} />
 
       <Gallery isLoading={loading} data={data} page={page} setPage={setPage} />
-    </div>
+    </>
   );
 };
 
