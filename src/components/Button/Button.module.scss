@@ -1,0 +1,9 @@
+.Button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  > svg {
+    fill: white;
+  }
+}

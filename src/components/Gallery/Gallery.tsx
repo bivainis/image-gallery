@@ -1,7 +1,9 @@
 import { PAGINATION_PAGE_SIZE } from "ts/constants";
 import { Image } from "ts/interfaces";
-
+import { ReactComponent as PreviousIcon } from "assets/icons/previous.svg";
+import { ReactComponent as NextIcon } from "assets/icons/next.svg";
 import classes from "./Gallery.module.scss";
+import { Button } from "components/Button";
 
 interface GalleryProps {
   data: Image[];
@@ -20,15 +22,15 @@ const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
   return (
     <div>
       <div className={classes.GalleryControls}>
-        <button onClick={() => handlePageChange(-1)} disabled={page === 1}>
-          prev
-        </button>
-        <button
+        <Button onClick={() => handlePageChange(-1)} isDisabled={page === 1}>
+          <PreviousIcon />
+        </Button>
+        <Button
           onClick={() => handlePageChange(1)}
-          disabled={data.length < PAGINATION_PAGE_SIZE}
+          isDisabled={data.length < PAGINATION_PAGE_SIZE}
         >
-          next
-        </button>
+          <NextIcon />
+        </Button>
       </div>
 
       {isLoading ? (
