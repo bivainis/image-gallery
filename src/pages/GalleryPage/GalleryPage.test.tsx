@@ -29,3 +29,12 @@ test("Renders image list on initial page load", async () => {
 
   expect(items.length).toBe(6);
 });
+
+test("Previous button is disabled on initial page load", async () => {
+  render(<GalleryPage />);
+  const previousButton = await screen.findByRole("button", {
+    name: "Previous page",
+  });
+
+  expect(previousButton).toBeDisabled();
+});
