@@ -16,12 +16,8 @@ const Search = ({ onSearch }: SearchProps) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      search: { value: string };
-    };
-    const searchInputValue = target.search.value;
 
-    onSearch(searchInputValue);
+    onSearch(searchQuery);
   };
 
   const handleClearSearch = () => {
