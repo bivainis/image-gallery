@@ -5,6 +5,7 @@ import { ReactComponent as NextIcon } from "assets/icons/next.svg";
 import classes from "./Gallery.module.scss";
 import { Button } from "components/Button";
 import { Loading } from "components/Loading";
+import { EmptyState } from "components/EmptyState";
 
 interface GalleryProps {
   data: Image[];
@@ -40,6 +41,10 @@ const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
           <NextIcon />
         </Button>
       </div>
+
+      {!isLoading && data.length === 0 && (
+        <EmptyState>There are no results matching your search</EmptyState>
+      )}
 
       {isLoading ? (
         <Loading />

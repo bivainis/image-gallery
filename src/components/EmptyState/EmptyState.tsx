@@ -1,6 +1,15 @@
-const EmptyState = () => {
+import { ReactNode } from "react";
+import classes from "./EmptyState.module.scss";
+
+interface EmptyStateProps {
+  children: ReactNode;
+}
+
+const EmptyState = ({ children }: EmptyStateProps) => {
   return (
-    <div>There are no results at the moment. Please check again later</div>
+    <div className={classes.EmptyState}>
+      <div>{children}</div>
+    </div>
   );
 };
 
