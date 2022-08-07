@@ -24,6 +24,7 @@ const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
     <div>
       <div className={classes.GalleryControls}>
         <Button
+          className={classes.GalleryControlsButton}
           onClick={() => handlePageChange(-1)}
           isDisabled={isLoading || page === 1}
           label="Previous page"
@@ -31,6 +32,7 @@ const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
           <PreviousIcon />
         </Button>
         <Button
+          className={classes.GalleryControlsButton}
           onClick={() => handlePageChange(1)}
           isDisabled={isLoading || data.length < PAGINATION_PAGE_SIZE}
           label="Next page"
