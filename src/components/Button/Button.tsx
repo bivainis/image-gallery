@@ -7,6 +7,7 @@ interface ButtonProps {
   className?: string;
   type?: "button" | "submit" | "reset" | undefined;
   isDisabled?: boolean;
+  label?: string;
 }
 
 const Button = ({
@@ -15,6 +16,7 @@ const Button = ({
   onClick,
   type,
   isDisabled,
+  label,
 }: ButtonProps) => {
   return (
     <button
@@ -22,6 +24,7 @@ const Button = ({
       onClick={onClick}
       disabled={isDisabled}
       type={type}
+      aria-label={label}
     >
       {children}
     </button>
