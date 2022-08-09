@@ -114,3 +114,20 @@ test("Clearing search should reset results to the first page", async () => {
   expect(items.length).toBe(6);
   expect(firstItem).toHaveTextContent("Level up");
 });
+
+test("Displays empty results message if search returns no results", async () => {
+  render(<GalleryPage />);
+
+  const user = userEvent.setup();
+  const inputElement = screen.getByPlaceholderText("Search images");
+
+  await screen.findByRole("list"); // wait for list
+  await user.click(inputElement); // focus input
+  await user.keyboard("asdf{Enter}"); // type query and hit Enter
+
+  await screen.findByRole("list"); // wait for list
+
+  expect(
+    screen.getByText("There are no results matching your search")
+  ).toBeInTheDocument();
+});
