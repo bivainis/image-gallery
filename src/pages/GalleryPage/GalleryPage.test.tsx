@@ -1,10 +1,4 @@
-import {
-  cleanup,
-  render,
-  screen,
-  waitForElementToBeRemoved,
-  within,
-} from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import GalleryPage from "./GalleryPage";
@@ -22,8 +16,6 @@ test("Renders image list on initial page load", async () => {
   render(<GalleryPage />);
 
   const list = await screen.findByRole("list");
-  expect(list).toBeInTheDocument();
-
   const { getAllByRole } = within(list);
   const items = getAllByRole("listitem");
 
@@ -32,6 +24,7 @@ test("Renders image list on initial page load", async () => {
 
 test("Previous button is disabled on initial page load", async () => {
   render(<GalleryPage />);
+
   const previousButton = await screen.findByRole("button", {
     name: "Previous page",
   });
@@ -39,29 +32,24 @@ test("Previous button is disabled on initial page load", async () => {
   expect(previousButton).toBeDisabled();
 });
 
-test("Clicking next should load the next page of images", async () => {
-  const user = userEvent.setup();
+test("Clicking next 3 times should load the next page of images with 2 results", async () => {
   render(<GalleryPage />);
 
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText("Loading, please wait...")
-  );
-
+  const user = userEvent.setup();
   const nextButton = await screen.findByLabelText("Next page");
 
-  // @TODO: refactor multiple clicks to by more DRY
+  // wait for list
+  await screen.findByRole("list");
+
+  // click 1
   await user.click(nextButton);
+  await screen.findByRole("list");
 
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText("Loading, please wait...")
-  );
-
+  // click 2
   await user.click(nextButton);
+  await screen.findByRole("list");
 
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText("Loading, please wait...")
-  );
-
+  // click 3
   await user.click(nextButton);
 
   const previousButton = await screen.findByRole("button", {
@@ -93,12 +81,6 @@ test("Search should display results correctly", async () => {
   await user.click(inputElement);
   await user.keyboard("hello{Enter}");
 
-  // wait for loading text to be removed
-  await screen.findByText("Loading, please wait...");
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText("Loading, please wait...")
-  );
-
   // wait for the new results list and items
   const list = await screen.findByRole("list");
   const { findAllByRole } = within(list);
@@ -117,24 +99,14 @@ test("Clearing search should reset results to the first page", async () => {
   const clearButtonElement = screen.getByRole("button", {
     name: "Clear search",
   });
-  await screen.findByRole("list");
-  await user.click(inputElement);
-  await user.keyboard("hello{Enter}");
 
-  await screen.findByText("Loading, please wait...");
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText("Loading, please wait...")
-  );
+  await screen.findByRole("list"); // wait for list
+  await user.click(inputElement); // focus input
+  await user.keyboard("hello{Enter}"); // type query and hit Enter
+  await screen.findByRole("list"); // wait for updated list
+  await user.click(clearButtonElement); // click Clear button
 
-  await user.click(clearButtonElement);
-
-  await screen.findByText("Loading, please wait...");
-
-  await waitForElementToBeRemoved(() =>
-    screen.queryByText("Loading, please wait...")
-  );
   const list = await screen.findByRole("list");
-
   const { findAllByRole } = within(list);
   const items = await findAllByRole("listitem");
   const [firstItem] = items;
