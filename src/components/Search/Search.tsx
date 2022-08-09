@@ -40,6 +40,7 @@ const Search = ({ onSearch }: SearchProps) => {
           className={classes.SearchClearButton}
           type="button"
           onClick={handleClearSearch}
+          label="Clear search"
         >
           <ClearIcon fill="black" />
         </Button>
