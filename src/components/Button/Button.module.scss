@@ -1,10 +1,10 @@
 .Button {
   background-color: transparent;
   cursor: pointer;
-  color: white;
+  color: var(--color-white);
 
   &[disabled] {
-    color: rgb(255, 255, 255, 0.4);
+    color: var(--color-disabled);
     cursor: not-allowed;
   }
 

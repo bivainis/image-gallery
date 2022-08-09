@@ -15,19 +15,19 @@
     right: 5px;
     top: 0;
     bottom: 0;
-    color: silver;
+    color: var(--color-gray);
     font-size: 0.8rem;
   }
 
   &Input {
     padding: 10px;
     font-size: 1.2rem;
-    border-radius: 10px;
-    border: 2px solid white;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--color-white);
     outline: 0;
 
     &:focus {
-      border: 2px solid hotpink;
+      border: 2px solid var(--color-primary);
     }
   }
 }
