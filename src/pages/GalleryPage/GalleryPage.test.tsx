@@ -108,3 +108,37 @@ test("Search should display results correctly", async () => {
   expect(items.length).toBe(1);
   expect(items[0]).toHaveTextContent("Hello");
 });
+
+test("Clearing search should reset results to the first page", async () => {
+  render(<GalleryPage />);
+
+  const user = userEvent.setup();
+  const inputElement = screen.getByPlaceholderText("Search images");
+  const clearButtonElement = screen.getByRole("button", {
+    name: "Clear search",
+  });
+  await screen.findByRole("list");
+  await user.click(inputElement);
+  await user.keyboard("hello{Enter}");
+
+  await screen.findByText("Loading, please wait...");
+  await waitForElementToBeRemoved(() =>
+    screen.queryByText("Loading, please wait...")
+  );
+
+  await user.click(clearButtonElement);
+
+  await screen.findByText("Loading, please wait...");
+
+  await waitForElementToBeRemoved(() =>
+    screen.queryByText("Loading, please wait...")
+  );
+  const list = await screen.findByRole("list");
+
+  const { findAllByRole } = within(list);
+  const items = await findAllByRole("listitem");
+  const [firstItem] = items;
+
+  expect(items.length).toBe(6);
+  expect(firstItem).toHaveTextContent("Level up");
+});
