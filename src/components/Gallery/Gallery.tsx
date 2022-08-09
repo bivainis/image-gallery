@@ -6,6 +6,8 @@ import classes from "./Gallery.module.scss";
 import { Button } from "components/Button";
 import { Loading } from "components/Loading";
 import { EmptyState } from "components/EmptyState";
+import { GalleryList } from "./GalleryList";
+import { GalleryItem } from "./GalleryList/GalleryItem";
 
 interface GalleryProps {
   data: Image[];
@@ -15,14 +17,16 @@ interface GalleryProps {
 }
 
 const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
+  /**
+   * Incrementes or decrements current page.
+   * @param val - positive or negative number of how many pages to jump
+   */
   const handlePageChange = (val: number) => {
-    setPage((previousPage) => {
-      return previousPage + val;
-    });
+    setPage((previousPage) => previousPage + val);
   };
 
   return (
-    <div>
+    <>
       <div className={classes.GalleryControls}>
         <Button
           className={classes.GalleryControlsButton}
@@ -49,25 +53,13 @@ const Gallery = ({ data, page, setPage, isLoading }: GalleryProps) => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ul className={classes.Gallery}>
-          {data.map((item) => {
-            return (
-              <li className={classes.GalleryItem} key={item.key}>
-                <img
-                  className={classes.GalleryImage}
-                  src={item.imagePath}
-                  alt={item.title}
-                />
-
-                <div className={classes.GalleryItemDescription}>
-                  {item.description}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <GalleryList>
+          {data.map(({ ...props }) => (
+            <GalleryItem {...props}></GalleryItem>
+          ))}
+        </GalleryList>
       )}
-    </div>
+    </>
   );
 };
 
