@@ -79,3 +79,32 @@ test("Clicking next should load the next page of images", async () => {
   expect(previousButton).not.toBeDisabled();
   expect(nextButton).toBeDisabled();
 });
+
+test("Search should display results correctly", async () => {
+  render(<GalleryPage />);
+
+  const user = userEvent.setup();
+  const inputElement = screen.getByPlaceholderText("Search images");
+
+  // wait for images to load
+  await screen.findByRole("list");
+
+  // focus and search for 'hello'
+  await user.click(inputElement);
+  await user.keyboard("hello{Enter}");
+
+  // wait for loading text to be removed
+  await screen.findByText("Loading, please wait...");
+  await waitForElementToBeRemoved(() =>
+    screen.queryByText("Loading, please wait...")
+  );
+
+  // wait for the new results list and items
+  const list = await screen.findByRole("list");
+  const { findAllByRole } = within(list);
+  const items = await findAllByRole("listitem");
+
+  // expecting only one result for the mock results
+  expect(items.length).toBe(1);
+  expect(items[0]).toHaveTextContent("Hello");
+});
